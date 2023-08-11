@@ -1,0 +1,72 @@
+[
+  {
+    "name": "Sunset Paradise Hotel",
+    "maxCount": 3,
+    "phoneNumber": 1234567890,
+    "rentPerDay": 120,
+    "imageUrls": [
+      "https://images.oyoroomscdn.com/uploads/hotel_image/39785/large/d08a785acbeeac54.jpg",
+      "https://images.oyoroomscdn.com/uploads/hotel_image/39785/large/631f61116848d38a.jpg",
+      "https://images.oyoroomscdn.com/uploads/hotel_image/39785/large/833c29d589346cf1.jpg"
+    ],
+    "currentBookings": [],
+    "type": "deluxe",
+    "description": "Experience luxury and comfort at its best with our deluxe rooms."
+  },
+  {
+    "name": "Cozy Cabin Inn",
+    "maxCount": 2,
+    "phoneNumber": 9876543210,
+    "rentPerDay": 80,
+    "imageUrls": [
+      "https://images.oyoroomscdn.com/uploads/hotel_image/39785/large/d08a785acbeeac54.jpg",
+      "https://images.oyoroomscdn.com/uploads/hotel_image/39785/large/631f61116848d38a.jpg",
+      "https://images.oyoroomscdn.com/uploads/hotel_image/39785/large/833c29d589346cf1.jpg"
+    ],
+    "currentBookings": [],
+    "type": "non-deluxe",
+    "description": "Escape to nature in our charming non-deluxe cabins with scenic views."
+  },
+  {
+    "name": "Royal Suites",
+    "maxCount": 4,
+    "phoneNumber": 5551234567,
+    "rentPerDay": 200,
+    "imageUrls": [
+      "https://images.oyoroomscdn.com/uploads/hotel_image/39785/large/d08a785acbeeac54.jpg",
+      "https://images.oyoroomscdn.com/uploads/hotel_image/39785/large/631f61116848d38a.jpg",
+      "https://images.oyoroomscdn.com/uploads/hotel_image/39785/large/833c29d589346cf1.jpg"
+    ],
+    "currentBookings": [],
+    "type": "deluxe",
+    "description": "Indulge in luxury and elegance with our deluxe suite rooms."
+  },
+  {
+    "name": "Tranquil Retreat",
+    "maxCount": 2,
+    "phoneNumber": 9870123456,
+    "rentPerDay": 150,
+    "imageUrls": [
+      "https://images.oyoroomscdn.com/uploads/hotel_image/39785/large/d08a785acbeeac54.jpg",
+      "https://images.oyoroomscdn.com/uploads/hotel_image/39785/large/631f61116848d38a.jpg",
+      "https://images.oyoroomscdn.com/uploads/hotel_image/39785/large/833c29d589346cf1.jpg"
+    ],
+    "currentBookings": [],
+    "type": "deluxe",
+    "description": "Find peace and serenity in our deluxe retreat rooms surrounded by nature."
+  },
+  {
+    "name": "Cityscape Residency",
+    "maxCount": 3,
+    "phoneNumber": 2345678901,
+    "rentPerDay": 100,
+    "imageUrls": [
+      "https://images.oyoroomscdn.com/uploads/hotel_image/39785/large/d08a785acbeeac54.jpg",
+      "https://images.oyoroomscdn.com/uploads/hotel_image/39785/large/631f61116848d38a.jpg",
+      "https://images.oyoroomscdn.com/uploads/hotel_image/39785/large/833c29d589346cf1.jpg"
+    ],
+    "currentBookings": [],
+    "type": "non-deluxe",
+    "description": "Experience urban living in our comfortable and modern non-deluxe rooms."
+  }
+]
