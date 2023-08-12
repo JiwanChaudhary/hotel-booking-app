@@ -6,6 +6,8 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 
 const LoginScreen = () => {
+  const [error, setError] = useState("");
+  const [isError, setIsError] = useState(false);
   const router = useRouter();
   const [user, setUser] = useState({
     email: "",
@@ -15,10 +17,13 @@ const LoginScreen = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await axios.post("/api/users/login", user);
+      const response = await axios.post("/api/users/login", user);
+      console.log(response);
       router.push("/home");
     } catch (error) {
-      console.log(error);
+      console.log(error.response.data.message);
+      setIsError(true);
+      setError(error.response.data.message);
     }
   };
 
@@ -51,6 +56,11 @@ const LoginScreen = () => {
             setUser({ ...user, [e.target.name]: e.target.value })
           }
         />
+        {isError && (
+          <>
+            <p>{error}</p>
+          </>
+        )}
 
         <button
           type="submit"
