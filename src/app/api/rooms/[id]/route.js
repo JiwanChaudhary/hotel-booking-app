@@ -2,12 +2,14 @@ import connectDB from "@/db/connect";
 import Room from "@/models/roomSchema";
 import { NextResponse } from "next/server";
 
-export async function POST(request) {
+export async function POST(request, { params }) {
     await connectDB();
     try {
-        const roomId = await request.json();
+        const { id } = params;
+        // console.log(id);
 
-        const room = await Room.findById({ _id: roomId });
+        const room = await Room.findById(id);
+        // console.log(room);
 
         return NextResponse.json({
             message: "Room found",

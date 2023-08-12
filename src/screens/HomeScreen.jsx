@@ -1,5 +1,7 @@
 "use client";
 
+import Error from "@/components/Error";
+import Loader from "@/components/Loader";
 import Room from "@/components/Room";
 import axios from "axios";
 import React, { useEffect, useState } from "react";
@@ -34,10 +36,8 @@ const HomeScreen = () => {
       <div className="container">
         <div className="flex flex-col justify-center m-auto">
           {loading ? (
-            <h1>Loading...</h1>
-          ) : error ? (
-            <h1>Error</h1>
-          ) : (
+            <Loader />
+          ) : rooms.length > 0 ? (
             rooms.map((room) => {
               return (
                 <div key={room._id} className="col-span-9">
@@ -45,6 +45,8 @@ const HomeScreen = () => {
                 </div>
               );
             })
+          ) : (
+            <Error />
           )}
         </div>
       </div>
