@@ -10,7 +10,7 @@ import {
 } from "@material-tailwind/react";
 import Link from "next/link";
 
-const Room = ({ room }) => {
+const Room = ({ room, fromDate, toDate }) => {
   const [open, setOpen] = useState(false);
 
   const handleOpen = () => setOpen(!open);
