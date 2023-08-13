@@ -5,6 +5,7 @@ import axios from "axios";
 import Image from "next/image";
 import Loader from "@/components/Loader";
 import Error from "@/components/Error";
+import { useRoomContext } from "@/hooks/context";
 
 const BookingScreen = () => {
   const params = useParams();
@@ -13,6 +14,7 @@ const BookingScreen = () => {
   const [room, setRoom] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
+  const { fromDate, toDate } = useRoomContext();
 
   const BookRoom = async () => {
     try {
@@ -58,8 +60,8 @@ const BookingScreen = () => {
                 <hr />
                 <b>
                   <p>Name: Jiwan</p>
-                  <p>From Date: 2023-12-12</p>
-                  <p>To Date: 2023-12-12</p>
+                  <p>From Date: {fromDate}</p>
+                  <p>To Date: {toDate}</p>
                   <p>Max Count: {room.maxCount}</p>
                 </b>
               </div>

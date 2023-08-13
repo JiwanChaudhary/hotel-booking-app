@@ -8,13 +8,13 @@ import React, { useEffect, useState } from "react";
 import { DatePicker, Space } from "antd";
 const { RangePicker } = DatePicker;
 import moment from "moment";
+import { useRoomContext } from "@/hooks/context";
 
 const HomeScreen = () => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState();
   const [error, setError] = useState();
-  const [fromDate, setFromDate] = useState();
-  const [toDate, setToDate] = useState();
+  const { setFromDate, setToDate } = useRoomContext();
 
   const getAllRooms = async () => {
     try {
@@ -61,7 +61,7 @@ const HomeScreen = () => {
             rooms.map((room) => {
               return (
                 <div key={room._id} className="col-span-9">
-                  <Room room={room} fromDate={fromDate} toDate={toDate} />
+                  <Room room={room} />
                 </div>
               );
             })
