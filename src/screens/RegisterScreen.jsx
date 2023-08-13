@@ -1,5 +1,8 @@
 "use client";
 
+import Error from "@/components/Error";
+import Loader from "@/components/Loader";
+import Success from "@/components/Success";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -7,6 +10,9 @@ import React, { useState } from "react";
 
 const RegisterScreen = () => {
   const router = useRouter();
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState();
+  const [success, setSuccess] = useState();
   const [user, setUser] = useState({
     name: "",
     email: "",
@@ -18,16 +24,25 @@ const RegisterScreen = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       await axios.post("/api/users/register", user);
-      router.push("/login");
+      setLoading(false);
+      setSuccess(true);
+      setUser("");
+      router.refresh();
     } catch (error) {
       console.log(error);
       setMatchPassword(true);
+      setLoading(false);
+      setError(true);
     }
   };
 
   return (
     <div>
+      {loading && <Loader />}
+      {error && <Error />}
+      {success && <Success message={"Registration successfull"} />}
       <h1 className="text-center font-bold">Register</h1>
       <form
         className="flex flex-col items-center justify-between"

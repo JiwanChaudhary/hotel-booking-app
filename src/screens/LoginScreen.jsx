@@ -7,6 +7,7 @@ import React, { useState } from "react";
 
 const LoginScreen = () => {
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
   const [isError, setIsError] = useState(false);
   const router = useRouter();
   const [user, setUser] = useState({
@@ -17,11 +18,15 @@ const LoginScreen = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
+      setLoading(true);
       const response = await axios.post("/api/users/login", user);
-      console.log(response);
+      // console.log(response);
+      setLoading(false);
+      // localStorage.setItem("user", JSON.stringify(response.data.user));
       router.push("/home");
     } catch (error) {
-      console.log(error.response.data.message);
+      // console.log(error.response.data.message);
+      setLoading(false);
       setIsError(true);
       setError(error.response.data.message);
     }

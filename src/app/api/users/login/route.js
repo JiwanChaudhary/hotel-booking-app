@@ -2,10 +2,11 @@ import connectDB from "@/db/connect";
 import User from "@/models/userSchema";
 import { NextResponse } from "next/server";
 import bcrypt from "bcrypt";
+import jwt from "jsonwebtoken";
 
 
 export async function POST(request) {
-    
+
     // get email and password from user
     const { email, password } = await request.json();
     // console.log(email, password);
@@ -40,7 +41,7 @@ export async function POST(request) {
     // compare user password with mondb password
     const comparePassword = await bcrypt.compare(password, user.password);
     // console.log(comparePassword);
-    if(!comparePassword){
+    if (!comparePassword) {
         return NextResponse.json({
             message: "password did not match",
             success: false,
@@ -49,21 +50,25 @@ export async function POST(request) {
         })
     }
 
-    // if user exist and password match then show result
-    if (user && comparePassword) {
-        return NextResponse.json({
-            message: "User found",
-            success: true,
-            user,
-        }, {
-            status: 200
-        })
-    } else {
-        return NextResponse.json({
-            message: "Something went wrong",
-            success: false,
-        }, {
-            status: 400
-        })
+    // create token data
+    const tokenData = {
+        id: user._id,
+        name: user.name,
     }
+
+    // create token
+    const token = await jwt.sign(tokenData, process.env.JWT_SECRET, { expiresIn: '100d' })
+
+    const response = await NextResponse.json({
+        message: "User found",
+        success: true,
+    }, {
+        status: 200
+    })
+
+    response.cookies.set("token", token, {
+        httpOnly: true
+    })
+
+    return response
 }
