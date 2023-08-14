@@ -16,11 +16,14 @@ const BookingScreen = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const { fromDate, toDate } = useRoomContext();
+  const [totalAmount, setTotalAmount] = useState();
 
   const momentFromDate = moment(fromDate, "DD-MM-YYYY");
   const momentToDate = moment(toDate, "DD-MM-YYYY");
 
-  const totalDays = moment.duration(momentToDate.diff(momentFromDate)).asDays()+1;
+  // total days
+  const totalDays =
+    moment.duration(momentToDate.diff(momentFromDate)).asDays() + 1;
 
   const BookRoom = async () => {
     try {
@@ -30,6 +33,7 @@ const BookingScreen = () => {
       const { data } = response;
       // console.log(data.room);
       setRoom(data.room);
+      setTotalAmount(data.room.rentPerDay * totalDays);
       setLoading(false);
       // console.log(response.data.room);
     } catch (error) {
@@ -45,6 +49,22 @@ const BookingScreen = () => {
   useEffect(() => {
     BookRoom();
   }, []);
+
+  async function handleBookRoom() {
+    const bookingDetails = {
+      room,
+      fromDate,
+      toDate,
+      totalAmount,
+      totalDays,
+    };
+
+    try {
+      await axios.post(`/api/book-room`, bookingDetails);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 
   return (
     <>
@@ -81,12 +101,15 @@ const BookingScreen = () => {
                   <hr />
                   <p>Total Day: {totalDays}</p>
                   <p>Rent Per Day: {room.rentPerDay}</p>
-                  <p>Total Amount</p>
+                  <p>Total Amount: {totalAmount}</p>
                 </b>
               </div>
               {/* button */}
               <div className="float-right">
-                <button className="bg-black text-white font-semibold py-1.5 px-4 rounded">
+                <button
+                  className="bg-black text-white font-semibold py-1.5 px-4 rounded"
+                  onClick={handleBookRoom}
+                >
                   Pay Now
                 </button>
               </div>
