@@ -9,6 +9,7 @@ import { DatePicker, Space } from "antd";
 const { RangePicker } = DatePicker;
 import moment from "moment";
 import { useRoomContext } from "@/hooks/context";
+import "antd/dist/antd.css";
 
 const HomeScreen = () => {
   const [rooms, setRooms] = useState([]);
@@ -37,10 +38,13 @@ const HomeScreen = () => {
   }, []);
 
   function handleDate(dates) {
-    // console.log(moment(dates[0]).format("DD-MM-YYYY"));
-    // console.log(moment(dates[1]).format("DD-MM-YYYY"));
-    setFromDate(moment(dates[0]).format("DD-MM-YYYY"));
-    setToDate(moment(dates[1]).format("DD-MM-YYYY"));
+    if (dates.length >= 2) {
+      const formattedFromDate = moment(dates[0]).format("DD-MM-YYYY");
+      const formattedToDate = moment(dates[1]).format("DD-MM-YYYY");
+
+      setFromDate(formattedFromDate);
+      setToDate(formattedToDate);
+    }
   }
 
   return (

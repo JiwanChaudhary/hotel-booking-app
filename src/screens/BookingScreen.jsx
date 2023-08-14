@@ -6,6 +6,7 @@ import Image from "next/image";
 import Loader from "@/components/Loader";
 import Error from "@/components/Error";
 import { useRoomContext } from "@/hooks/context";
+import moment from "moment";
 
 const BookingScreen = () => {
   const params = useParams();
@@ -15,6 +16,11 @@ const BookingScreen = () => {
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState();
   const { fromDate, toDate } = useRoomContext();
+
+  const momentFromDate = moment(fromDate, "DD-MM-YYYY");
+  const momentToDate = moment(toDate, "DD-MM-YYYY");
+
+  const totalDays = moment.duration(momentToDate.diff(momentFromDate)).asDays()+1;
 
   const BookRoom = async () => {
     try {
@@ -32,6 +38,9 @@ const BookingScreen = () => {
       setLoading(false);
     }
   };
+
+  // console.log(fromDate);
+  // console.log(toDate);
 
   useEffect(() => {
     BookRoom();
@@ -70,7 +79,7 @@ const BookingScreen = () => {
                 <h1>Amount</h1>
                 <b>
                   <hr />
-                  <p>Total Day</p>
+                  <p>Total Day: {totalDays}</p>
                   <p>Rent Per Day: {room.rentPerDay}</p>
                   <p>Total Amount</p>
                 </b>

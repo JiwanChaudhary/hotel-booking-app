@@ -10,7 +10,7 @@
   },
   "dependencies": {
     "@material-tailwind/react": "^2.1.0",
-    "antd": "^5.8.3",
+    "antd": "^4.16.2",
     "axios": "^1.4.0",
     "bcrypt": "^5.1.0",
     "eslint": "8.46.0",
