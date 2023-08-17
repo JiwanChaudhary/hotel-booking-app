@@ -2,6 +2,7 @@ import connectDB from "@/db/connect";
 import Booking from "@/models/bookingSchema";
 import Room from "@/models/roomSchema";
 import { NextResponse } from "next/server";
+import jwt from "jsonwebtoken";
 
 export async function POST(request) {
     await connectDB();
@@ -11,9 +12,14 @@ export async function POST(request) {
         totalAmount,
         totalDays } = await request.json();
 
+    const token = await request.cookies.get("token")?.value
+
+    const decodeToken = await jwt.verify(token, process.env.JWT_SECRET);
+    // console.log(decodeToken);
+
     const newBooking = new Booking({
         room: room.name,
-        userId: '64d8fec0213741d86636c2fc',
+        userId: decodeToken.id,
         roomId: room._id,
         fromDate,
         toDate,
