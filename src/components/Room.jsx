@@ -9,9 +9,11 @@ import {
   Carousel,
 } from "@material-tailwind/react";
 import Link from "next/link";
+import { useRoomContext } from "@/hooks/context";
 
 const Room = ({ room }) => {
   const [open, setOpen] = useState(false);
+  const { fromDate, toDate } = useRoomContext();
 
   const handleOpen = () => setOpen(!open);
 
@@ -27,12 +29,14 @@ const Room = ({ room }) => {
         <p>Type: {room.type}</p>
 
         <div className="float-right">
-          <Link
-            href={`/book/${room._id}`}
-            className="bg-black text-white font-semibold py-2 px-4 rounded"
-          >
-            Book Now
-          </Link>
+          {fromDate && toDate && (
+            <Link
+              href={`/book/${room._id}`}
+              className="bg-black text-white font-semibold py-2 px-4 rounded"
+            >
+              Book Now
+            </Link>
+          )}
           <button
             onClick={handleOpen}
             className="bg-black text-white font-semibold py-2 px-4 rounded"

@@ -15,7 +15,8 @@ const HomeScreen = () => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState();
   const [error, setError] = useState();
-  const { setFromDate, setToDate } = useRoomContext();
+  const { fromDate, setFromDate, toDate, setToDate } = useRoomContext();
+  const [duplicateRooms, setDuplicateRooms] = useState([]);
 
   const getAllRooms = async () => {
     try {
@@ -23,6 +24,7 @@ const HomeScreen = () => {
       const response = await axios.get(`/api/rooms`);
       const { data } = response;
       setRooms(data.room);
+      setDuplicateRooms(data.room);
       setLoading(false);
       // console.log(data);
       // console.log(response.data.room);
@@ -38,12 +40,43 @@ const HomeScreen = () => {
   }, []);
 
   function handleDate(dates) {
-    if (dates.length >= 2) {
-      const formattedFromDate = moment(dates[0]).format("DD-MM-YYYY");
-      const formattedToDate = moment(dates[1]).format("DD-MM-YYYY");
+    const formattedFromDate = moment(dates[0]).format("DD-MM-YYYY");
+    const formattedToDate = moment(dates[1]).format("DD-MM-YYYY");
 
-      setFromDate(formattedFromDate);
-      setToDate(formattedToDate);
+    setFromDate(formattedFromDate);
+    setToDate(formattedToDate);
+
+    let tempRooms = [];
+    let availability = false;
+
+    for (const room of duplicateRooms) {
+      if (rooms.currentBookings.length > 0) {
+        for (const booking of rooms.currentBookings) {
+          if (
+            !moment(moment(dates[0]).format("DD-MM-YYYY")).isBetween(
+              fromDate,
+              toDate
+            ) &&
+            !moment(moment(dates[1]).format("DD-MM-YYYY")).isBetween(
+              fromDate,
+              toDate
+            )
+          ) {
+            if (
+              moment(dates[0]).format("DD-MM-YYYY") !== fromDate &&
+              moment(dates[0]).format("DD-MM-YYYY") !== toDate &&
+              moment(dates[1]).format("DD-MM-YYYY") !== fromDate &&
+              moment(dates[1]).format("DD-MM-YYYY") !== toDate
+            ) {
+              availability = true;
+            }
+          }
+        }
+      }
+      if (availability == true || room.currentBookings.length == 0) {
+        tempRooms.push(room);
+      }
+      setRooms(tempRooms);
     }
   }
 
