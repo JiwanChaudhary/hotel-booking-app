@@ -7,6 +7,7 @@ import Loader from "@/components/Loader";
 import Error from "@/components/Error";
 import { useRoomContext } from "@/hooks/context";
 import moment from "moment";
+import StripeCheckout from "react-stripe-checkout";
 
 const BookingScreen = () => {
   const params = useParams();
@@ -50,13 +51,15 @@ const BookingScreen = () => {
     BookRoom();
   }, []);
 
-  async function handleBookRoom() {
+  // stripe checkout
+  async function onToken(token) {
     const bookingDetails = {
       room,
       fromDate,
       toDate,
       totalAmount,
       totalDays,
+      token,
     };
 
     try {
@@ -106,12 +109,16 @@ const BookingScreen = () => {
               </div>
               {/* button */}
               <div className="float-right">
-                <button
-                  className="bg-black text-white font-semibold py-1.5 px-4 rounded"
-                  onClick={handleBookRoom}
+                <StripeCheckout
+                  currency="INR"
+                  amount={totalAmount}
+                  token={onToken}
+                  stripeKey="pk_test_51NgWA8SD1kf6cpk3KuKGvt9EkYicddCZ5eOurqFJPvNGSaTpKkwp9I2n882ptBDDuRAdHIEFNmbjEZ6thwPnXWpt00l8tLyBbx"
                 >
-                  Pay Now
-                </button>
+                  <button className="bg-black text-white font-semibold py-1.5 px-4 rounded">
+                    Pay Now
+                  </button>
+                </StripeCheckout>
               </div>
             </div>
           </div>
