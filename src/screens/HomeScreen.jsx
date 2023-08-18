@@ -15,7 +15,7 @@ const HomeScreen = () => {
   const [rooms, setRooms] = useState([]);
   const [loading, setLoading] = useState();
   const [error, setError] = useState();
-  const { fromDate, setFromDate, toDate, setToDate } = useRoomContext();
+  const { setFromDate, setToDate } = useRoomContext();
   const [duplicateRooms, setDuplicateRooms] = useState([]);
 
   const getAllRooms = async () => {
@@ -50,23 +50,23 @@ const HomeScreen = () => {
     let availability = false;
 
     for (const room of duplicateRooms) {
-      if (rooms.currentBookings.length > 0) {
-        for (const booking of rooms.currentBookings) {
+      if (room.currentBookings.length > 0) {
+        for (const booking of room.currentBookings) {
           if (
             !moment(moment(dates[0]).format("DD-MM-YYYY")).isBetween(
-              fromDate,
-              toDate
+              booking.fromDate,
+              booking.toDate
             ) &&
             !moment(moment(dates[1]).format("DD-MM-YYYY")).isBetween(
-              fromDate,
-              toDate
+              booking.fromDate,
+              booking.toDate
             )
           ) {
             if (
-              moment(dates[0]).format("DD-MM-YYYY") !== fromDate &&
-              moment(dates[0]).format("DD-MM-YYYY") !== toDate &&
-              moment(dates[1]).format("DD-MM-YYYY") !== fromDate &&
-              moment(dates[1]).format("DD-MM-YYYY") !== toDate
+              moment(dates[0]).format("DD-MM-YYYY") !== booking.fromDate &&
+              moment(dates[0]).format("DD-MM-YYYY") !== booking.toDate &&
+              moment(dates[1]).format("DD-MM-YYYY") !== booking.fromDate &&
+              moment(dates[1]).format("DD-MM-YYYY") !== booking.toDate
             ) {
               availability = true;
             }
