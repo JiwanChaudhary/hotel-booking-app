@@ -17,6 +17,8 @@ const HomeScreen = () => {
   const [error, setError] = useState();
   const { setFromDate, setToDate } = useRoomContext();
   const [duplicateRooms, setDuplicateRooms] = useState([]);
+  const [searchKey, setSearchKey] = useState("");
+  const [type, setType] = useState("all");
 
   const getAllRooms = async () => {
     try {
@@ -80,15 +82,55 @@ const HomeScreen = () => {
     }
   }
 
+  // search room by keyword
+  function filterBySearch() {
+    const tempRooms = duplicateRooms.filter((room) =>
+      room.name.toLowerCase().includes(searchKey.toLowerCase())
+    );
+    setRooms(tempRooms);
+  }
+
+  // search room by type
+  function filterByType(e) {
+    setType(e);
+    if (e !== "all") {
+      const tempRooms = duplicateRooms.filter(
+        (room) => room.type.toLowerCase() === e.toLowerCase()
+      );
+      setRooms(tempRooms);
+    } else {
+      setRooms(duplicateRooms);
+    }
+  }
+
   return (
     <>
       <div className="container">
-        <div className="container px-2 py-2">
-          <div className="col-span-9">
+        <div className="container px-2 py-2 flex flex-row gap-5">
+          <div className="col-span-0 w-15">
             <Space direction="vertical" size={5}>
               <RangePicker format="DD-MM-YYYY" onChange={handleDate} />
             </Space>
           </div>
+          <div className="col-span-3">
+            <input
+              type="text"
+              placeholder="search rooms"
+              className="border border-black rounded px-4 py-2"
+              value={searchKey}
+              onChange={(e) => setSearchKey(e.target.value)}
+              onKeyUp={filterBySearch}
+            />
+          </div>
+          <select
+            className="border border-black rounded px-4 py-2"
+            value={type}
+            onChange={(e) => filterByType(e.target.value)}
+          >
+            <option value="all">All</option>
+            <option value="deluxe">Deluxe</option>
+            <option value="non-deluxe">Non-Deluxe</option>
+          </select>
         </div>
 
         <div className="flex flex-col justify-center m-auto">
@@ -103,7 +145,9 @@ const HomeScreen = () => {
               );
             })
           ) : (
-            <Error />
+            <>
+              <h1>No Rooms of name: {searchKey}</h1>
+            </>
           )}
         </div>
       </div>

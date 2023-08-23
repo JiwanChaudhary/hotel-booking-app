@@ -8,8 +8,11 @@ import Error from "@/components/Error";
 import { useRoomContext } from "@/hooks/context";
 import moment from "moment";
 import StripeCheckout from "react-stripe-checkout";
+import { useRouter } from "next/navigation";
 
 const BookingScreen = () => {
+  const router = useRouter();
+
   const params = useParams();
   const id = params.id;
 
@@ -52,18 +55,37 @@ const BookingScreen = () => {
   }, []);
 
   // stripe checkout
-  async function onToken(token) {
+  // async function onToken(token) {
+  //   const bookingDetails = {
+  //     room,
+  //     fromDate,
+  //     toDate,
+  //     totalAmount,
+  //     totalDays,
+  //     token,
+  //   };
+
+  //   try {
+  //     await axios.post(`/api/book-room`, bookingDetails);
+  //   } catch (error) {
+  //     console.log(error);
+  //   }
+  // }
+
+  // book Now
+  async function handleBookNow() {
     const bookingDetails = {
       room,
       fromDate,
       toDate,
       totalAmount,
       totalDays,
-      token,
     };
 
     try {
       await axios.post(`/api/book-room`, bookingDetails);
+      alert("Room Booked Successfully!");
+      router.push("/home");
     } catch (error) {
       console.log(error);
     }
@@ -109,16 +131,22 @@ const BookingScreen = () => {
               </div>
               {/* button */}
               <div className="float-right">
-                <StripeCheckout
+                <button
+                  onClick={handleBookNow}
+                  className="bg-black text-white font-semibold py-1.5 px-4 rounded"
+                >
+                  Book Now
+                </button>
+                {/* <StripeCheckout
                   currency="INR"
                   amount={totalAmount}
                   token={onToken}
                   stripeKey="pk_test_51NgWA8SD1kf6cpk3KuKGvt9EkYicddCZ5eOurqFJPvNGSaTpKkwp9I2n882ptBDDuRAdHIEFNmbjEZ6thwPnXWpt00l8tLyBbx"
                 >
                   <button className="bg-black text-white font-semibold py-1.5 px-4 rounded">
-                    Pay Now
+                    Pay Now Stripe Not Working
                   </button>
-                </StripeCheckout>
+                </StripeCheckout> */}
               </div>
             </div>
           </div>

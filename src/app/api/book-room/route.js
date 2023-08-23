@@ -3,8 +3,11 @@ import Booking from "@/models/bookingSchema";
 import Room from "@/models/roomSchema";
 import { NextResponse } from "next/server";
 import jwt from "jsonwebtoken";
+// import Stripe from "stripe"
+// import { v4 as uuidv4 } from 'uuid';
 
 export async function POST(request) {
+    // const stripe = new Stripe('sk_test_51NgWA8SD1kf6cpk36gIGqZEQM7az5QEih0Twkz9B7ubY56lwUk8XUFjNki3LsrKJLsdBmFQZV1UR68IXOCQHQFAp00Yo9SkULl');
     await connectDB();
     const { room,
         fromDate,
@@ -16,6 +19,22 @@ export async function POST(request) {
 
     const decodeToken = await jwt.verify(token, process.env.JWT_SECRET);
     // console.log(decodeToken);
+
+    // stripe
+    // const customer = await stripe.customers.create({
+    //     email: decodeToken.email,
+    //     source: decodeToken.id,
+    // })
+
+    // const payment = await stripe.charges.create({
+    //     amount: totalAmount * 100,
+    //     customer: customer.id,
+    //     currency: 'inr',
+    //     receipt_email: decodeToken.email
+    // }, {
+    //     idempotencyKey: uuidv4()
+    // })
+    // stripe in complete due to frontend error
 
     const newBooking = new Booking({
         room: room.name,
@@ -36,7 +55,7 @@ export async function POST(request) {
         bookingId: booking._id,
         fromDate,
         toDate,
-        userId: '64d8fec0213741d86636c2fc',
+        userId: decodeToken.id,
         status: booking.status,
     })
 
@@ -49,7 +68,4 @@ export async function POST(request) {
     }, {
         status: 200
     })
-
-
-
 }

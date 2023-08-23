@@ -54,6 +54,7 @@ export async function POST(request) {
     const tokenData = {
         id: user._id,
         name: user.name,
+        email: user.email,
     }
 
     // create token
@@ -62,6 +63,7 @@ export async function POST(request) {
     const response = await NextResponse.json({
         message: "User found",
         success: true,
+        token
     }, {
         status: 200
     })
