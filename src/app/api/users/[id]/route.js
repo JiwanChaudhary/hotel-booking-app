@@ -4,15 +4,14 @@ import User from "@/models/userSchema";
 import { NextResponse } from "next/server";
 
 export async function GET(request, { params }) {
-    console.log(params);
 
     const { id } = params;
-    console.log(id);
+
     // connect mongodb
     await connectDB();
 
     // find user on the basis of id
-    const user = await User.findById({ _id: id });
+    const user = await User.findById({ _id: id }).select("-password");
     // console.log(user);
 
     // if user does not exist show error

@@ -61,7 +61,7 @@ const DropDown = ({ name, id }) => {
           >
             <li>
               <a
-                href={`/profile/${id}?${slugName}`}
+                href={`/profile/${id}`}
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
                 Profile

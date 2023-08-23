@@ -1,10 +1,12 @@
 import ProfileScreen from "@/screens/ProfileScreen";
 import React from "react";
 
-const page = () => {
+const page = ({ params }) => {
+  const { id } = params;
+  // console.log(id);
   return (
     <>
-      <ProfileScreen />
+      <ProfileScreen id={id} />
     </>
   );
 };

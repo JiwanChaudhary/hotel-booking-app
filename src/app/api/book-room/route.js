@@ -48,6 +48,7 @@ export async function POST(request) {
     })
 
     const booking = await newBooking.save();
+    // console.log("booking", booking);
 
     const roomCurrentBooking = await Room.findOne({ _id: room._id });
 
@@ -58,6 +59,7 @@ export async function POST(request) {
         userId: decodeToken.id,
         status: booking.status,
     })
+    // console.log("bookingId", bookingId);
 
     await roomCurrentBooking.save();
 
