@@ -4,9 +4,11 @@ import { useRouter } from "next/navigation";
 import React, { useState } from "react";
 import axios from "axios";
 
-const DropDown = ({ name }) => {
+const DropDown = ({ name, id }) => {
   const router = useRouter();
   const [dropDown, setDropDown] = useState(false);
+
+  const slugName = name.toLowerCase().replace(/ /g, "-");
 
   const handleDropDown = () => {
     setDropDown((prev) => !prev);
@@ -59,10 +61,10 @@ const DropDown = ({ name }) => {
           >
             <li>
               <a
-                href="#"
+                href={`/profile/${id}?${slugName}`}
                 className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
               >
-                Bookings
+                Profile
               </a>
             </li>
             <li>
