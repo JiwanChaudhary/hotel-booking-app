@@ -11,7 +11,6 @@ const ProfileScreen = ({ id }) => {
     {
       name: "",
       email: "",
-      isAdmin: false,
     },
   ]);
 
@@ -89,9 +88,6 @@ const ProfileScreen = ({ id }) => {
           <div>
             <h1 className="font-medium">Name: {user.name}</h1>
             <h1 className="font-medium">Email: {user.email}</h1>
-            <h1 className="font-medium">
-              isAdmin: {user.isAdmin ? "Yes" : "No"}
-            </h1>
           </div>
         )}
         {userBooking && (
@@ -155,6 +151,7 @@ export function MyBookings({ id }) {
   return (
     <>
       {loading && <Loader />}
+      {bookings.length === 0 && <p>You donot have any bookings</p>}
       {bookings &&
         bookings.map((booking) => {
           return (

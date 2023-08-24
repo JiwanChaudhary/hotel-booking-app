@@ -19,7 +19,7 @@ const LoginScreen = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      const response = await axios.post("/api/users/login", user);
+      await axios.post("/api/users/login", user);
       // console.log(response);
       setLoading(false);
       // localStorage.setItem("user", JSON.stringify(response.data.user));

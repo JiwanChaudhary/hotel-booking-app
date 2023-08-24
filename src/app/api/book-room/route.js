@@ -71,3 +71,16 @@ export async function POST(request) {
         status: 200
     })
 }
+
+// get all bookings
+export async function GET(request) {
+    await connectDB();
+
+    const allBookings = await Booking.find({});
+
+    return NextResponse.json({
+        message: "All bookings",
+        success: true,
+        allBookings
+    }, { status: 200 })
+}

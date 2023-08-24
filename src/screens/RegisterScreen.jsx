@@ -17,9 +17,7 @@ const RegisterScreen = () => {
     name: "",
     email: "",
     password: "",
-    cpassword: "",
   });
-  const [matchPassword, setMatchPassword] = useState(false);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -29,7 +27,7 @@ const RegisterScreen = () => {
       setLoading(false);
       setSuccess(true);
       setUser("");
-      router.refresh();
+      router.push("/login");
     } catch (error) {
       console.log(error);
       setMatchPassword(true);
@@ -81,22 +79,6 @@ const RegisterScreen = () => {
             setUser({ ...user, [e.target.name]: e.target.value })
           }
         />
-        <input
-          className="shadow appearance-none border rounded py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-          type="password"
-          placeholder="confirm password"
-          name="cpassword"
-          required
-          value={user.cpassword}
-          onChange={(e) =>
-            setUser({ ...user, [e.target.name]: e.target.value })
-          }
-        />
-        {matchPassword && (
-          <>
-            <p>Password must be same</p>
-          </>
-        )}
         <button
           type="submit"
           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"

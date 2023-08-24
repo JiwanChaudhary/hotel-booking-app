@@ -5,11 +5,16 @@ import { NextResponse } from "next/server";
 // create room
 export async function POST(request) {
     await connectDB();
-    const { name, maxCount, phoneNumber, rentPerDay, imageUrls, currentBookings, type, description } = await request.json();
+    const { name, maxCount, phoneNumber, rentPerDay, imageUrls, type, description } = await request.json();
 
-    const room = await Room.create({ name, maxCount, phoneNumber, rentPerDay, imageUrls, currentBookings, type, description });
+    const room = await Room.create({ name, maxCount, phoneNumber, rentPerDay, imageUrls, type, description });
 
-    return NextResponse.json({ message: "Success", room }, { status: 201 });
+    return NextResponse.json({
+        message: "Success",
+        room
+    }, {
+        status: 201
+    });
 
 }
 
