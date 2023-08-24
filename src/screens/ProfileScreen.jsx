@@ -4,6 +4,7 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import Loader from "@/components/Loader";
 import { useRouter } from "next/navigation";
+import Swal from "sweetalert2";
 
 const ProfileScreen = ({ id }) => {
   const [user, setUser] = useState([
@@ -131,7 +132,7 @@ export function MyBookings({ id }) {
   }, []);
 
   const cancelBooking = async (bookingId, roomId) => {
-    try { 
+    try {
       setLoading(true);
       const results = await axios.put(`/api/rooms/cancel-booking`, {
         bookingId,
@@ -142,14 +143,12 @@ export function MyBookings({ id }) {
       });
       // console.log("roomId:", roomId);
       // console.log("bookingId:", bookingId);
-      alert("Room Cancelled Successfully!");
+      Swal.fire("Congratulations", "Booking Cancelled Successfully", "success");
       router.refresh();
       setLoading(false);
-
-      // console.log(results);
-      // console.log(canc);
     } catch (error) {
       console.log(error);
+      setLoading(false);
     }
   };
 
@@ -168,16 +167,22 @@ export function MyBookings({ id }) {
                 <h2>Amount: {booking.totalAmount}</h2>
                 <h2>
                   Status:{" "}
-                  <span className="bg-blue-500 text-white px-4 py-5 rounded">
+                  <span
+                    className={`${
+                      booking.status === "booked" ? "bg-blue-500" : "bg-red-500"
+                    } text-white px-4 py-5 rounded`}
+                  >
                     {booking.status === "booked" ? "CONFIRMED" : "CANCELLED"}
                   </span>
                 </h2>
-                <button
-                  onClick={() => cancelBooking(booking._id, booking.roomId)}
-                  className="bg-blue-500 text-white font-bold py-2 px-4 rounded float-right"
-                >
-                  Cancel
-                </button>
+                {booking.status !== "cancelled" && (
+                  <button
+                    onClick={() => cancelBooking(booking._id, booking.roomId)}
+                    className="bg-blue-500 text-white font-bold py-2 px-4 rounded float-right"
+                  >
+                    Cancel
+                  </button>
+                )}
               </div>
               <hr className="font-bold px-5 text-black" />
             </>

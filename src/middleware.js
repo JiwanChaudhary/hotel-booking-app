@@ -24,6 +24,7 @@ export const config = {
         "/profile/:path*",
         "/login",
         "/signup",
-        "/book/:path*"
+        "/book/:path*",
+        "/home"
     ]
 }
