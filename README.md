@@ -1,34 +1,28 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+## Tools and technology used
 
-## Getting Started
+### Node version: 16.14.0
+### npm version: 8.3.1
 
-First, run the development server:
+Built in Next JS which is the framework for the React JS. Node JS and Express JS as a backend Technology.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-```
+VS Code as a Platform to develop.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+### Basics to start the project
++ Fork
++ Clone
++ cd/hotel-booking-app
++ npm install
 
-You can start editing the page by modifying `app/page.js`. The page auto-updates as you edit the file.
+Create the **.env** file in the root of the project.
+- Setup the following in **.env** file:
+    - **MONGO_URI** = *Your Mongo URI*
+    - **DOMAIN** = *Domain of your local setup*     
+        - *(e.g: http://localhost:3000)*
+    - **JWT_SECRET** = *Use your secret json web token* 
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+### For further information, contact:
+jeewanchaudhary6@gmail.com
 
-## Learn More
+[Insatagram](https://www.instagram.com/jeewa_n_) 
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+    
